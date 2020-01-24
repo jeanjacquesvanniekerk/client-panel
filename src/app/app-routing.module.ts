@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes, Router } from "@angular/router";
 
 import { AuthGuard } from "./guards/auth.guard";
+import { RegisterGuard } from "./guards/register.guard";
 
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -15,7 +16,11 @@ import { ClientDetailsComponent } from "./components/client-details/client-detai
 const routes: Routes = [
   { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
+  {
+    path: "register",
+    component: RegisterComponent,
+    canActivate: [RegisterGuard]
+  },
   {
     path: "client/add",
     component: AddClientComponent,
@@ -38,6 +43,6 @@ const routes: Routes = [
 @NgModule({
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard]
+  providers: [AuthGuard, RegisterGuard]
 })
 export class AppRoutingModule {}
